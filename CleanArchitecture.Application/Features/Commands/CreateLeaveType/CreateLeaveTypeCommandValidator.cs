@@ -19,8 +19,8 @@ namespace CleanArchitecture.Application.Features.Commands.CreateLeaveType
                 .NotNull()
                 .MaximumLength(70).WithMessage("{PropertyName} must be fewer than 70 characters");
             RuleFor(p => p.DefaultDays)
-                .GreaterThan(100).WithMessage("{PropertyName} cannot exceed 100")
-                .LessThan(1).WithMessage("{PropertyName} cannot be less than 1");
+                .LessThan(100).WithMessage("{PropertyName} cannot exceed 100")
+                .GreaterThan(1).WithMessage("{PropertyName} cannot be less than 1");
             RuleFor(p => p)
                 .MustAsync(LeaveTypeNameUnique)
                 .WithMessage("Leave Type already exist");

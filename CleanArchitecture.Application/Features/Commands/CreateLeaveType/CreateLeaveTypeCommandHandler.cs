@@ -19,11 +19,11 @@ namespace CleanArchitecture.Application.Features.Commands.CreateLeaveType
         public async Task<int> Handle(CreateLeaveTypeCommand request, CancellationToken cancellationToken)
         {
             //Validate incoming data
-            var validator = new CreateLeaveTypeCommandValidator();
+            var validator = new CreateLeaveTypeCommandValidator(_leaveTypeRepository);
             var validationResult = await validator.ValidateAsync(request);
-            if (!validationResult.IsValid)
+            if (validationResult.Errors.Any())
             {
-                throw new BadRequestException("Invalid Leavetype", validationResult);
+                throw new BadRequestException("Invalid LeaveType", validationResult);
             }
             //Convert to domain entity type object
             var leaveTypeToCreate = _mapper.Map<LeaveType>(request);
