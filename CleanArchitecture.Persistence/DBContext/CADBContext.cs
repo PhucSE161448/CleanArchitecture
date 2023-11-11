@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Persistence.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace CleanArchitecture.Persistence.DBContext
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CADBContext).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach(var entry in base.ChangeTracker.Entries<BaseEntity>()
