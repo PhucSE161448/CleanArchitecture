@@ -31,7 +31,7 @@ namespace CleanArchitecture.Persistence.Repositories
 
         public async Task<IReadOnlyList<T>> GetAsync() => await _context.Set<T>().AsNoTracking().ToListAsync();
 
-        public async Task GetByIdAsync(int id) => await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        public async Task <T> GetByIdAsync(int id) => await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
 
         public async Task UpdateAsync(T entity)
